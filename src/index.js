@@ -25,6 +25,11 @@ root.render(
               <Route path=":bookId" element={<Book/>}/>
           </Route>
         </Route>
+          <Route path="*" element={
+              <main style={{padding: "1rem"}}>
+                  <p>Page not found</p>
+              </main>
+          } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
