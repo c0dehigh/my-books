@@ -14,8 +14,16 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/about" element={<About />}></Route>
-          <Route path="/books" element={<Books />}></Route>
-           <Route path="/books/:bookId" element={<Book/>}/>
+          <Route path="/books" element={<Books />}>
+              <Route
+                  index
+                  element={
+                  <main style={{padding: "1rem", display: "block"}}>
+                      <p>Choose your book</p>
+                  </main>
+              } />
+              <Route path=":bookId" element={<Book/>}/>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

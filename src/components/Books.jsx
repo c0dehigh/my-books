@@ -1,10 +1,10 @@
 import { getBooks } from "../data/data";
-import { Link } from "react-router-dom";
+import { Link , Outlet } from "react-router-dom";
 
 const Books = () => {
   const books = getBooks();
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{ display: "block", justifyContent: "center" }}>
       <nav style={{ padding: "1rem" }}>
         <input type="text" placeholder="search book" />
         {books.map((book) => (
@@ -17,6 +17,7 @@ const Books = () => {
           </Link>
         ))}
       </nav>
+        <Outlet/>
     </div>
   );
 };
