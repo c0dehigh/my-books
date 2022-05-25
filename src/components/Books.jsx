@@ -1,21 +1,42 @@
 import { getBooks } from "../data/data";
-import { NavLink , Outlet } from "react-router-dom";
+import { NavLink, Outlet, useSearchParams } from "react-router-dom";
 
 const Books = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const books = getBooks();
   return (
     <div style={{ display: "block", justifyContent: "center" }}>
       <nav style={{ padding: "1rem" }}>
-        <input type="text" placeholder="search book" />
-        {books.map((book) => (
+        <input
+          value={searchParams.get("filter") || ""}
+          onChange={(event) => {
+            let filter = event.target.value;
+            if (filter) {
+              setSearchParams({ filter: filter });
+            } else {
+              setSearchParams({});
+            }
+          }}
+          type="text"
+          placeholder="search book"
+        />
+
+        {
+            books.filter((book)=>{
+                let filter = searchParams.get("filter")
+                if(!filter) return true
+                let name = book.name.toLowerCase()
+                return name.startsWith(filter.toLowerCase())
+            })
+                .map((book) => (
           <NavLink
-            style={({isActive}) =>{
-                return {
-                    display: "block",
-                    margin : "1rem 0",
-                    color : isActive ? "red" : ""
-                }
-            } }
+            style={({ isActive }) => {
+              return {
+                display: "block",
+                margin: "1rem 0",
+                color: isActive ? "red" : "",
+              };
+            }}
             to={`/books/${book.number}`}
             key={book.number}
           >
@@ -23,7 +44,7 @@ const Books = () => {
           </NavLink>
         ))}
       </nav>
-        <Outlet/>
+      <Outlet />
     </div>
   );
 };
