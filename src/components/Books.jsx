@@ -1,5 +1,5 @@
 import { getBooks } from "../data/data";
-import { Link , Outlet } from "react-router-dom";
+import { NavLink , Outlet } from "react-router-dom";
 
 const Books = () => {
   const books = getBooks();
@@ -8,13 +8,19 @@ const Books = () => {
       <nav style={{ padding: "1rem" }}>
         <input type="text" placeholder="search book" />
         {books.map((book) => (
-          <Link
-            style={{ display: "block" }}
+          <NavLink
+            style={({isActive}) =>{
+                return {
+                    display: "block",
+                    margin : "1rem 0",
+                    color : isActive ? "red" : ""
+                }
+            } }
             to={`/books/${book.number}`}
             key={book.number}
           >
             {book.name}
-          </Link>
+          </NavLink>
         ))}
       </nav>
         <Outlet/>
