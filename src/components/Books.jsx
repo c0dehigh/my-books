@@ -1,8 +1,9 @@
 import { getBooks } from "../data/data";
-import { NavLink, Outlet, useSearchParams } from "react-router-dom";
+import { NavLink, Outlet, useSearchParams , useLocation } from "react-router-dom";
 
 const Books = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation()
   const books = getBooks();
   return (
     <div style={{ display: "block", justifyContent: "center" }}>
@@ -37,7 +38,7 @@ const Books = () => {
                 color: isActive ? "red" : "",
               };
             }}
-            to={`/books/${book.number}`}
+            to={`/books/${book.number}${location.search}`}
             key={book.number}
           >
             {book.name}
